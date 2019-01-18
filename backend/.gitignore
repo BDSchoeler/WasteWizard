@@ -1,0 +1,25 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Logs
+logs
+*.log
+npm-debug.log*
+package-lock.json
+
+# nyc test coverage
+.nyc_output
+test-results.xml
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
