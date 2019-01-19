@@ -1,34 +1,40 @@
 import React, { Component } from 'react'
 import {
-  Container,
-  Input,
-  Button,
-  Grid,
-} from 'semantic-ui-react'
+  Grid, Col, Button, FormControl, Form, Glyphicon
+} from 'react-bootstrap';
 
 class SearchBox extends Component {
     state={
         searchText: ''
     }
 
+    handleChange = (e) =>{
+			this.setState({
+				searchText: e.target.value
+			})
+    }
+
     render() {
       return (
-        <Container>
-            <Grid fluid>
-                <Grid.Column width={14}>
-                    <Input fluid type='text' placeholder='Search...' />
-                </Grid.Column>
-                <Grid.Column width={2}>
-                    <Button icon='search' />
-                </Grid.Column>
-            </Grid>
-        </Container>
+			<Col md={12}>
+				<Form>
+					<Col xs={11} md={11}>
+						<FormControl 
+							type="text"
+							placeholder='Search...'
+							value={this.state.searchText}
+							onChange={this.handleChange}
+						/>
+					</Col>
+					<Col xs={1} md={1}>
+						<Button bsStyle="success" type='submit'>
+							<Glyphicon glyph='glyphicon glyphicon-search' />
+						</Button>
+					</Col>
+				</Form>
+			</Col>
       );
     }
 }
 
 export default SearchBox;
-
-//todo:
-//Search on click
-//on change method to keep track of search text

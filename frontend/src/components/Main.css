@@ -1,20 +1,18 @@
 .banner {
     margin-top: 10px;
-    background-image: linear-gradient(-90deg, #1D5895, #22965E);
+    margin-bottom: 10px;
+    background-image: linear-gradient(-90deg, #22965E, #1D5895);
     height: 75px;
 }
 
-.title {
-    margin-top:10px !important;
-    color: white !important; 
-}
- 
 h1 {
     text-align: center;
-    font-weight: 100;
-    font-size: 13rem;
-    margin: 2rem 0;
+    font-weight: bold;
+    font-size: 24px;
     letter-spacing: -1px;
     color: white;
-    text-decoration: none;
+}
+
+table td {
+    border-top: none !important;
 }
