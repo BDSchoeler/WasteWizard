@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table as BTable, Grid, Col } from 'react-bootstrap'
+import { Table as BTable, Col } from 'react-bootstrap'
 import TableItem from './TableItem'
 
 const testData = [

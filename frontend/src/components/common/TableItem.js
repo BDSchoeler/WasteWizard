@@ -4,22 +4,32 @@ import { Table as BTable, Grid, Col, Row } from 'react-bootstrap'
 
 class TableItem extends Component {
 
-		decodeHTML(description){
-			let e = document.createElement('td');
+		decodeHTML = (description) => {
+			let e = document.createElement('col');
 			e.innerHTML = description;
 			return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
 		}
 
+		formatDescription = (description) => {
+			if(description[0] !== '&' ) {
+				return `&lt;ul&gt;\n&lt;li&gt;${description}&lt;/li&gt;\n&lt;/ul&gt;`;
+			}
+			return description;
+		}
+
+		handleFavourite = () => {
+			//action call here
+		}
+
     render() {
 			const { item } = this.props;
-			console.log(item)
 			return (
-			<tr>
-					<td width='10px' >{item.favourite ? 'fav' : 'hate!'}</td>
-					<td>{item.title}</td>
+				<tr>
+					<Col xs={1} md={1}><input className="star" type="checkbox" checked={item.favourite} onChange={this.handleFavourite}/></Col>
+					<Col xs={2}  md={2}>{item.title}</Col>
 					{/* <td>{item.description}</td> */}
-					<td dangerouslySetInnerHTML={{ __html: this.decodeHTML(item.description) }} />
-    	</tr>
+					<Col xs={9} md={9} dangerouslySetInnerHTML={{ __html: this.decodeHTML(this.formatDescription(item.description)) }} />
+			</tr>
 			);
     }
 }

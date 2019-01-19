@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Grid, Col, Button, FormControl, Form, Glyphicon
+  Col, Button, FormControl, Form, Glyphicon
 } from 'react-bootstrap';
 
 class SearchBox extends Component {
