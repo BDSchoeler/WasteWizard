@@ -17,7 +17,7 @@ router.get('/keyword/:keywords', async (req, res) => {
 });
 
 /* GET favourited items */
-router.get('/favourite', async (req, res) => {
+router.get('/favourites', async (req, res) => {
   let [err, items] = await to(controller.getFavourites());
   if (err) {
     res.status(err.status || 500);
