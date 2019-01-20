@@ -1,7 +1,8 @@
 import instance from '../config/axiosConfig'
 import {
         FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS, FETCH_ITEMS_FAILURE,
-        FETCH_FAVOURITE_ITEMS_REQUEST, FETCH_FAVOURITE_ITEMS_SUCCESS, FETCH_FAVOURITE_ITEMS_FAILURE
+        FETCH_FAVOURITE_ITEMS_REQUEST, FETCH_FAVOURITE_ITEMS_SUCCESS, FETCH_FAVOURITE_ITEMS_FAILURE,
+        UPDATE_ITEM_REQUEST, UPDATE_ITEM_SUCCESS, UPDATE_ITEM_FAILURE
     } from './itemsActionTypes';
   
     function onItemsFetch(data) {
@@ -18,12 +19,12 @@ import {
         };
     }
     
-    // export function onUpdateFavourite(id, params) {
-    //     return {
-    //     type: UPDATE_ITEM,
-    //     payload: instance.get(`/${id}`, { params})
-    //     };
-    // }
+    function onUpdateFavourite(data) {
+        return {
+            type: UPDATE_ITEM_SUCCESS,
+            payload: data
+        };
+    }
 
   
     // Dispatchers
@@ -35,7 +36,6 @@ import {
             dispatch(onItemsFetch(data))
         }
         const result = await instance.get(`items/keyword/${keyword}`)
-        console.log(result);
         dispatch(onItemsFetch(result.data));
     }
     
@@ -44,5 +44,7 @@ import {
         dispatch(onFavouriteItemsFetch(result.data))
     };
 
-    // export const updateItemFavourite = (id, params) =>
-    //     dispatch => dispatch(onUpdateFavourite(id, params));
+    export const updateItemFavourite = (id, params) => async dispatch => {
+        const results = await instance.put(`items/${id}`, {...params});
+        dispatch(onUpdateFavourite(results));
+    };

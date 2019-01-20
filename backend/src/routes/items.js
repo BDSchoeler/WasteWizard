@@ -34,7 +34,7 @@ router.put('/:id', async (req, res) => {
     res.status(err.status);
     res.send({ error: err.message });
   } else {
-    res.send({ data: { success } });
+    res.send({ data: { success: true } });
   }
 });
 

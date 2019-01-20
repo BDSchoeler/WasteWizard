@@ -4,7 +4,7 @@ import Table from '../common/Table';
 import { Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchFavouriteItems } from '../../actions/itemsActionCreator'
+import { fetchFavouriteItems, updateItemFavourite } from '../../actions/itemsActionCreator'
 
 
 class Results extends Component {  
@@ -13,10 +13,10 @@ class Results extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, actions } = this.props;
       return (
         <div className='results-view'>
-          <Table items={items} />
+          <Table items={items} actions={actions} />
         </div>
       );
     }
@@ -32,7 +32,8 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ 
-			fetchFavouriteItems
+      fetchFavouriteItems,
+      updateItemFavourite
 		}, dispatch)
   })
 )(Results);
