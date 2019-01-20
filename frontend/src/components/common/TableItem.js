@@ -5,7 +5,7 @@ import { Table as BTable, Grid, Col, Row } from 'react-bootstrap'
 class TableItem extends Component {
 
 	decodeHTML = (description) => {
-		let e = document.createElement('col');
+		let e = document.createElement('div');
 		e.innerHTML = description;
 		return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
 	}

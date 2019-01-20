@@ -3,34 +3,35 @@ import { connect } from 'react-redux';
 import {
     Grid, Row
 } from 'react-bootstrap';
-import SearchBox from './SearchBox';
+import SearchBox from './common/SearchBox';
 import './Main.css';
-import Results from './Results';
+import Results from './items/Results';
 import { bindActionCreators } from 'redux';
-import { fetchFavouriteItems } from '../actions/itemsActionCreator'
+import { fetchItems } from '../actions/itemsActionCreator'
 
-export class Main extends Component {
+class Main extends Component {
 
-		componentDidUpdate(){
-			console.log("updated", this.props)
-		}
-
-		testAction = (event) => {
-			this.props.actions.fetchFavouriteItems()
+		handleSearch = (searchText) => {
+			const { fetchItems } = this.props.actions;
+			fetchItems(searchText)
 		}
 
     render() {
+			const { fetchItems } = this.props.actions;
       return (
         <Grid fluid>
 					<Row className='banner'>
 						<h1>Toronto Waste Lookup</h1>
 					</Row>
-					<SearchBox />
+					<Row>
+						<SearchBox handleSearch={this.handleSearch} fetchItems={fetchItems}/>
+					</Row>
+					<Row>
 					<Results />
+					</Row>
 					<Row>
 							{/* Favourites */}
 					</Row>
-					<button onClick={this.testAction}>Test Redux</button>
         </Grid>
       );
     }
@@ -42,7 +43,7 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ 
-			fetchFavouriteItems
+			fetchItems
 		}, dispatch)
   })
 )(Main);

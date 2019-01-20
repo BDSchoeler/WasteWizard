@@ -1,14 +1,15 @@
 import instance from '../config/axiosConfig'
 import {
-        FETCH_FAVOURITE_ITEMS_FAILURE,FETCH_FAVOURITE_ITEMS_SUCCESS, FETCH_FAVOURITE_ITEMS_REQUEST
+        FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS, FETCH_ITEMS_FAILURE,
+        FETCH_FAVOURITE_ITEMS_REQUEST, FETCH_FAVOURITE_ITEMS_SUCCESS, FETCH_FAVOURITE_ITEMS_FAILURE
     } from './itemsActionTypes';
   
-    // export function onItemsFetch(params) {
-    //     return {
-    //     type: FETCH_ITEMS,
-    //     payload: instance.get('', { params })
-    //     };
-    // }
+    function onItemsFetch(data) {
+        return {
+        type: FETCH_ITEMS_SUCCESS,
+        payload: data
+        };
+    }
     
     function onFavouriteItemsFetch(data) {
         return {
@@ -26,8 +27,17 @@ import {
 
   
     // Dispatchers
-    // export const fetchItems = (params) =>
-    //     dispatch => dispatch(onItemsFetch(params));
+    export const fetchItems = (keyword) => async dispatch => {
+        if(!keyword){
+            const data = {
+                data: []
+            };
+            dispatch(onItemsFetch(data))
+        }
+        const result = await instance.get(`items/keyword/${keyword}`)
+        console.log(result);
+        dispatch(onItemsFetch(result.data));
+    }
     
     export const fetchFavouriteItems = () => async dispatch => {
         const result = await instance.get('items/favourites');

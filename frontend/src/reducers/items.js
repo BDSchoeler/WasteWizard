@@ -4,42 +4,47 @@ import initialState from './intialState';
 
 export default (state = initialState.items, action) => {
 	switch (action.type) {
-		// case types.FETCH_ITEMS_REQUEST:
-        //     return {
-        //         pending: true,
-        //         items: [] };
-        //     break;
-        // case types.FETCH_ITEMS_SUCCESS:
-        //     return {
-        //         pending: false,
-        //         items: action.items,
-        //     };
-        //     break;
-        // case types.FETCH_ITEMS_FAILURE:
-        //     return {
-        //         pending: false,
-        //         items: [],
-        //         err: action.err,
-        //      };
-        //     break;
+        // Fetch Items with Keyword
+		case types.FETCH_ITEMS_REQUEST:
+            return {
+                loading: true,
+                items: []
+            };
+            break;
+        case types.FETCH_ITEMS_SUCCESS:
+            return {
+                loading: false,
+                items: action.payload.data,
+            };
+            break;
+        case types.FETCH_ITEMS_FAILURE:
+            return {
+                loading: false,
+                items: [],
+                err: action.err,
+             };
+            break;
+        // Fetch All Favourite Items
         case types.FETCH_FAVOURITE_ITEMS_REQUEST:
             return {
                 loading: true,
-                items: [] }
+                favourites: [] }
             break;
         case types.FETCH_FAVOURITE_ITEMS_SUCCESS:
             return {
                 loading: false,
-                items: action.payload.data
+                favourites: action.payload.data
             };
             break;
         case types.FETCH_FAVOURITE_ITEMS_FAILURE:
             return {
                 loading: false,
                 err: action.err,
-                items: []
+                favourites: []
              };
             break;
+        // Update Item Favourite Status
+        // Default
 		default:
              return state;
 	}
