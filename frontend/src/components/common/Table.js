@@ -5,7 +5,7 @@ import TableItem from './TableItem';
 
 class Table extends Component {
 
-	buildTable=() => {
+	buildTable = () => {
 		const { items, actions, keyword } = this.props;
 		return items.map((item) => {
 				return (
