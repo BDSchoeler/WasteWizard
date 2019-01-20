@@ -5,7 +5,7 @@ import { Glyphicon } from 'react-bootstrap';
 class TableItem extends Component {
 
 	decodeHTML = (description) => {
-		let e = document.createElement('div');
+		let e = document.createElement('td');
 		e.innerHTML = description;
 		return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
 	}
@@ -33,7 +33,7 @@ class TableItem extends Component {
 		});
 	}
 
-    render() {
+  render() {
 		const { item } = this.props;
 		return (
 			<tr>

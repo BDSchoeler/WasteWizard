@@ -16,39 +16,39 @@ class Favourites extends Component {
     const { favourites, actions, keyword } = this.props;
       return (
         <Col md={12}>
-            {favourites.length !== 0 &&
-                <h3>Favourites</h3>
-            }
-            <Table items={favourites} actions={actions} keyword={keyword}/>
+					{ favourites.length !== 0 &&
+						<h3>Favourites</h3>
+					}
+					<Table items={favourites} actions={actions} keyword={keyword}/>
         </Col>
       );
     }
-}
+	}
 
 Favourites.defaultProps = {
-    keyword: null
+  keyword: null
 }
 
 Favourites.propTypes = {
-    favourites: PropTypes.arrayOf(PropTypes.any).isRequired,
-    actions: PropTypes.shape({
-        fetchFavouriteItems: PropTypes.func.isRequired,
-        fetchItems: PropTypes.func.isRequired,
-        updateItemFavourite: PropTypes.func.isRequired
-    }).isRequired,
-    keyword: PropTypes.string
+	favourites: PropTypes.arrayOf(PropTypes.any).isRequired,
+	actions: PropTypes.shape({
+		fetchFavouriteItems: PropTypes.func.isRequired,
+		fetchItems: PropTypes.func.isRequired,
+		updateItemFavourite: PropTypes.func.isRequired
+	}).isRequired,
+	keyword: PropTypes.string
 }
 
 export default connect(
-    (state) => ({
-        favourites : state.itemReducer.favourites,
-        keyword: state.itemReducer.keyword
-    }),
-    dispatch => ({
-        actions: bindActionCreators({ 
-            fetchItems,
-            fetchFavouriteItems,
-            updateItemFavourite
-        }, dispatch)
-    })
+	(state) => ({
+		favourites : state.itemReducer.favourites,
+		keyword: state.itemReducer.keyword
+	}),
+	dispatch => ({
+		actions: bindActionCreators({ 
+			fetchItems,
+			fetchFavouriteItems,
+			updateItemFavourite
+		}, dispatch)
+	})
 )(Favourites);

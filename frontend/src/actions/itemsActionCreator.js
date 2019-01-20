@@ -23,27 +23,27 @@ function rejectItemsFetch(data) {
 // Fetch All Favourite Items
 function acceptFavouriteItemsFetch(data) {
 	return {
-			type: FETCH_FAVOURITE_ITEMS_SUCCESS,
-			payload: data
+		type: FETCH_FAVOURITE_ITEMS_SUCCESS,
+		payload: data
 	};
 }
 function rejectFavouriteItemsFetch(data) {
 	return {
-			type: FETCH_FAVOURITE_ITEMS_FAILURE,
-			err: data
+		type: FETCH_FAVOURITE_ITEMS_FAILURE,
+		err: data
 	};
 }
 // Update Item Favourite Status
 function acceptUpdateFavourite(data) {
-		return {
-				type: UPDATE_ITEM_SUCCESS,
-				payload: data.success
-		};
+	return {
+		type: UPDATE_ITEM_SUCCESS,
+		payload: data.success
+	};
 }
 function rejectUpdateFavourite(data) {
 	return {
-			type: UPDATE_ITEM_FAILURE,
-			err: data
+		type: UPDATE_ITEM_FAILURE,
+		err: data
 	};
 }
 

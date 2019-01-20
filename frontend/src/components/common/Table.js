@@ -8,9 +8,9 @@ class Table extends Component {
 	buildTable = () => {
 		const { items, actions, keyword } = this.props;
 		return items.map((item) => {
-				return (
-					<TableItem key={item.id} item={item} actions={actions} keyword={keyword}/>
-				)
+			return (
+				<TableItem key={item.id} item={item} actions={actions} keyword={keyword}/>
+			)
 		})
 	}
 	render() {

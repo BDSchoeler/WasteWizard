@@ -20,13 +20,13 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.any).isRequired,
-    actions: PropTypes.shape({
-      fetchFavouriteItems: PropTypes.func.isRequired,
-      fetchItems: PropTypes.func.isRequired,
-      updateItemFavourite: PropTypes.func.isRequired
-    }).isRequired,
-    keyword: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.any).isRequired,
+  actions: PropTypes.shape({
+    fetchFavouriteItems: PropTypes.func.isRequired,
+    fetchItems: PropTypes.func.isRequired,
+    updateItemFavourite: PropTypes.func.isRequired
+  }).isRequired,
+  keyword: PropTypes.string.isRequired,
 }
 
 export default connect(

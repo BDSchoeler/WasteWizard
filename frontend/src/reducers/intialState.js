@@ -1,7 +1,7 @@
 export default {
-    items: {
-        loading: false,
-        items: [],
-        favourites: []
-    }
-  };
+	items: {
+		loading: false,
+		items: [],
+		favourites: []
+	}
+};
