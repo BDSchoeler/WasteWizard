@@ -6,10 +6,10 @@ import TableItem from './TableItem'
 class Table extends Component {
 
 	buildTable=() => {
-		const { items, actions } = this.props;
+		const { items, actions, keyword } = this.props;
 		return items.map((item) => {
 				return (
-					<TableItem key={item.id} item={item} toggleFavourite={actions.updateItemFavourite} />
+					<TableItem key={item.id} item={item} actions={actions} keyword={keyword}/>
 				)
 		})
 	}
@@ -28,7 +28,12 @@ class Table extends Component {
 
 Table.propTypes = {
 	items: PropTypes.arrayOf(PropTypes.any).isRequired,
-	actions: PropTypes.shape({}).isRequired
+	actions: PropTypes.shape({
+		fetchItems: PropTypes.func.isRequired,
+		fetchFavouriteItems: PropTypes.func.isRequired,
+		updateItemFavourite: PropTypes.func.isRequired,
+	}).isRequired,
+	keyword: PropTypes.string.isRequired
 }
 
 export default Table;

@@ -4,34 +4,34 @@ import Table from '../common/Table';
 import { Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchFavouriteItems, updateItemFavourite } from '../../actions/itemsActionCreator'
+import { fetchItems, fetchFavouriteItems, updateItemFavourite } from '../../actions/itemsActionCreator'
 
 
 class Results extends Component {  
-  testAction = (event) => {
-    this.props.actions.fetchFavouriteItems()
-  }
 
   render() {
-    const { items, actions } = this.props;
+    const { items, actions, keyword } = this.props;
       return (
         <div className='results-view'>
-          <Table items={items} actions={actions} />
+          <Table items={items} actions={actions} keyword={keyword} />
         </div>
       );
     }
 }
 
 Results.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.any).isRequired
+  items: PropTypes.arrayOf(PropTypes.any).isRequired,
+  keyword: PropTypes.string.isRequired,
 }
 
 export default connect(
   (state) => ({
-    items : state.itemReducer.items
+    items : state.itemReducer.items,
+    keyword : state.itemReducer.keyword,
   }),
   dispatch => ({
     actions: bindActionCreators({ 
+      fetchItems,
       fetchFavouriteItems,
       updateItemFavourite
 		}, dispatch)

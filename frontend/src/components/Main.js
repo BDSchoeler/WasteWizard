@@ -8,12 +8,13 @@ import './Main.css';
 import Results from './items/Results';
 import { bindActionCreators } from 'redux';
 import { fetchItems } from '../actions/itemsActionCreator'
+import Favourites from './favourites/Favourites';
 
 class Main extends Component {
 
 		handleSearch = (searchText) => {
 			const { fetchItems } = this.props.actions;
-			fetchItems(searchText)
+			fetchItems(searchText.toLowerCase())
 		}
 
     render() {
@@ -27,10 +28,10 @@ class Main extends Component {
 						<SearchBox handleSearch={this.handleSearch} fetchItems={fetchItems}/>
 					</Row>
 					<Row>
-					<Results />
+						<Results />
 					</Row>
 					<Row>
-							{/* Favourites */}
+						<Favourites />
 					</Row>
         </Grid>
       );

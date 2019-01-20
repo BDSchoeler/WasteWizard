@@ -17,6 +17,7 @@ export default (state = initialState.items, action) => {
                 ...state,
                 loading: false,
                 items: action.payload.data,
+                keyword: action.keyword,
             };
             break;
         case types.FETCH_ITEMS_FAILURE:

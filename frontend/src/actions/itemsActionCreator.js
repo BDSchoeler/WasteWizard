@@ -5,10 +5,11 @@ import {
         UPDATE_ITEM_REQUEST, UPDATE_ITEM_SUCCESS, UPDATE_ITEM_FAILURE
     } from './itemsActionTypes';
   
-    function onItemsFetch(data) {
+    function onItemsFetch(data, keyword) {
         return {
         type: FETCH_ITEMS_SUCCESS,
-        payload: data
+        payload: data,
+        keyword
         };
     }
     
@@ -36,7 +37,7 @@ import {
             dispatch(onItemsFetch(data))
         }
         const result = await instance.get(`items/keyword/${keyword}`)
-        dispatch(onItemsFetch(result.data));
+        dispatch(onItemsFetch(result.data, keyword));
     }
     
     export const fetchFavouriteItems = () => async dispatch => {
