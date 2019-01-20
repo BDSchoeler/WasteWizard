@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Table from '../common/Table';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchItems, fetchFavouriteItems, updateItemFavourite } from '../../actions/itemsActionCreator'
+import { fetchItems, fetchFavouriteItems, updateItemFavourite } from '../../actions/itemsActionCreator';
 
 
 class Favourites extends Component {  
   componentDidMount(){
-    this.props.actions.fetchFavouriteItems()
+    this.props.actions.fetchFavouriteItems();
   }
 
   render() {
     const { favourites, actions, keyword } = this.props;
       return (
-        <div>
+        <Col md={12}>
             {favourites.length !== 0 &&
-                <Col md={12}>
                 <h3>Favourites</h3>
-                </Col>
             }
             <Table items={favourites} actions={actions} keyword={keyword}/>
-        </div>
+        </Col>
       );
     }
 }

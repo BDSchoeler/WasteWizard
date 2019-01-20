@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Table as BTable, Col } from 'react-bootstrap'
-import TableItem from './TableItem'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Table as BTable } from 'react-bootstrap';
+import TableItem from './TableItem';
 
 class Table extends Component {
 
@@ -15,15 +15,17 @@ class Table extends Component {
 	}
 	render() {
 		return (
-				<Col md={12}>
-					<BTable hover>
-						<tbody>
-							{this.buildTable()}
-						</tbody>
-					</BTable>
-				</Col>
+			<BTable hover>
+				<tbody>
+					{this.buildTable()}
+				</tbody>
+			</BTable>
 		);
 	}
+}
+
+Table.default = {
+	keyword: null,
 }
 
 Table.propTypes = {
@@ -33,7 +35,7 @@ Table.propTypes = {
 		fetchFavouriteItems: PropTypes.func.isRequired,
 		updateItemFavourite: PropTypes.func.isRequired,
 	}).isRequired,
-	keyword: PropTypes.string.isRequired
+	keyword: PropTypes.string,
 }
 
 export default Table;

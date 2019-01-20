@@ -20,20 +20,24 @@ class Main extends Component {
     render() {
 			const { fetchItems } = this.props.actions;
       return (
-        <Grid fluid>
-					<Row className='banner'>
-						<h1>Toronto Waste Lookup</h1>
-					</Row>
+				<div>
+				<Row className='banner'>
+					<h1>Toronto Waste Lookup</h1>
+				</Row>
+        <Grid>
 					<Row>
 						<SearchBox handleSearch={this.handleSearch} fetchItems={fetchItems}/>
 					</Row>
+					{this.props.items.length !== 0 &&
 					<Row>
 						<Results />
 					</Row>
+					}
 					<Row>
 						<Favourites />
 					</Row>
         </Grid>
+				</div>
       );
     }
 }

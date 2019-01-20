@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Table as BTable, Grid, Col, Row } from 'react-bootstrap'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Glyphicon } from 'react-bootstrap';
 
 class TableItem extends Component {
 
@@ -21,7 +21,7 @@ class TableItem extends Component {
 		const { actions, item, keyword } = this.props;
 		const data = {
 			data: {
-				favourite: !item.favourite
+				favourite: !item.favourite,
 			}
 		};
 		this.setState({
@@ -37,12 +37,16 @@ class TableItem extends Component {
 		const { item } = this.props;
 		return (
 			<tr>
-				<Col xs={1} md={1}><input className="star" type="checkbox" checked={item.favourite} onChange={this.handleFavourite}/></Col>
-				<Col xs={2}  md={2}>{item.title}</Col>
-				<Col xs={9} md={9} dangerouslySetInnerHTML={{ __html: this.decodeHTML(this.formatDescription(item.description)) }} />
-		</tr>
+				<td width="10%"><Glyphicon className={item.favourite ? 'starChecked' : 'starUnchecked'} glyph='glyphicon glyphicon-star' onClick={this.handleFavourite}/></td>
+				<td width="40%">{item.title}</td>
+				<td width="60%" dangerouslySetInnerHTML={{ __html: this.decodeHTML(this.formatDescription(item.description)) }} />
+			</tr>
 		);
     }
+}
+
+TableItem.defaultProps = {
+	keyword: null,
 }
 
 TableItem.propTypes = {
@@ -57,7 +61,7 @@ TableItem.propTypes = {
 		fetchFavouriteItems: PropTypes.func.isRequired,
 		updateItemFavourite: PropTypes.func.isRequired
 	}).isRequired,
-	keyword: PropTypes.string.isRequired,
+	keyword: PropTypes.string,
 };
 
 export default TableItem;

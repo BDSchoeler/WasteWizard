@@ -34,15 +34,15 @@ import {
             const data = {
                 data: []
             };
-            dispatch(onItemsFetch(data))
+            dispatch(onItemsFetch(data));
         }
-        const result = await instance.get(`items/keyword/${keyword}`)
+        const result = await instance.get(`items/keyword/${keyword}`);
         dispatch(onItemsFetch(result.data, keyword));
     }
     
     export const fetchFavouriteItems = () => async dispatch => {
         const result = await instance.get('items/favourites');
-        dispatch(onFavouriteItemsFetch(result.data))
+        dispatch(onFavouriteItemsFetch(result.data));
     };
 
     export const updateItemFavourite = (id, params) => async dispatch => {

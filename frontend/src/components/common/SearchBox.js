@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Col, Button, FormControl, Glyphicon
 } from 'react-bootstrap';
@@ -31,7 +31,7 @@ class SearchBox extends Component {
 
     render() {
       return (
-			<Col md={12}>
+			<div>
 				<Col xs={11} md={11} className='search-box'>
 					<FormControl 
 						type="text"
@@ -46,7 +46,7 @@ class SearchBox extends Component {
 						<Glyphicon glyph='glyphicon glyphicon-search' />
 					</Button>
 				</Col>
-			</Col>
+			</div>
       );
     }
 }

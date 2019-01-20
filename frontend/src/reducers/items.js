@@ -1,5 +1,4 @@
-import typeToReducer from 'type-to-reducer';
-import * as types from '../actions/itemsActionTypes'
+import * as types from '../actions/itemsActionTypes';
 import initialState from './intialState';
 
 export default (state = initialState.items, action) => {
