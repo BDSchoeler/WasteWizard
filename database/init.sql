@@ -8,8 +8,8 @@ CREATE TABLE items(
     id          UUID NOT NULL PRIMARY KEY,
     title       VARCHAR(120) NOT NULL,
     category    VARCHAR(120),
-    description VARCHAR(120),
-    favourite   BIT,
+    description VARCHAR(8000),
+    favourite   BOOLEAN
 );
 
 -- Table of Keywords

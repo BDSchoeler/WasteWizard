@@ -7,14 +7,14 @@ import SearchBox from './common/SearchBox';
 import './Main.css';
 import Results from './items/Results';
 import { bindActionCreators } from 'redux';
-import { fetchItems } from '../actions/itemsActionCreator'
+import { fetchItems } from '../actions/itemsActionCreator';
 import Favourites from './favourites/Favourites';
 
 class Main extends Component {
 
 		handleSearch = (searchText) => {
 			const { fetchItems } = this.props.actions;
-			fetchItems(searchText.toLowerCase())
+			fetchItems(searchText.toLowerCase());
 		}
 
     render() {

@@ -18,7 +18,7 @@ router.get('/keyword/:keywords', async (req, res) => {
 
 /* GET favourited items */
 router.get('/favourites', async (req, res) => {
-  let [err, items] = await to(controller.getFavourites());
+  const [err, items] = await to(controller.getFavourites());
   if (err) {
     res.status(err.status || 500);
     res.send({ error: err.message });
@@ -34,7 +34,7 @@ router.put('/:id', async (req, res) => {
     res.status(err.status);
     res.send({ error: err.message });
   } else {
-    res.send({ data: { success: true } });
+    res.send({ data: { success: true, data: success } });
   }
 });
 
