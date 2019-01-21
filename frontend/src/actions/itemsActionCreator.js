@@ -53,13 +53,14 @@ export const fetchItems = (keyword) => async dispatch => {
 		const data = {
 				data: []
 		};
-		dispatch(acceptItemsFetch(data));
-	}
-	try {
-		const result = await instance.get(`items/keyword/${keyword}`);
-		dispatch(acceptItemsFetch(result.data, keyword));
-	} catch(e) {
-		dispatch(rejectItemsFetch(e));
+		dispatch(acceptItemsFetch(data, keyword));
+	} else {
+		try {
+			const result = await instance.get(`items/keyword/${keyword}`);
+			dispatch(acceptItemsFetch(result.data, keyword));
+		} catch(e) {
+			dispatch(rejectItemsFetch(e));
+		}
 	}
 }
 
