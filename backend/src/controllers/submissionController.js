@@ -25,7 +25,7 @@ export default class ItemController {
     const subs = [];
     for (let i = 0; i < result.rows.length; i += 1) {
         const data = outcome.rows[i]
-        const sub = new Submission(data.id, data.firstName, data.lastName, data.email, data.phoneNumber, data.userId, data.jobId, data.cv, data.dateCreated);
+        const sub = new Submission(data.id, data.firstname, data.lastname, data.email, data.phonenumber, data.userid, data.jobid, data.cv, data.datecreated);
         subs.push(sub);
     }
     return sub;

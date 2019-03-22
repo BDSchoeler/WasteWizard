@@ -33,6 +33,7 @@ router.post('/register', function(req, res) {
               message: 'Email or password are incorrect.',
             });
           }
+          console.log(user);
          if( user.comparePassword(req.body.password) ) {
                 const token = jwt.sign({id: user.id}, 'nodeauthsecret', { expiresIn: 864000 * 30});
                 jwt.verify(token, 'nodeauthsecret', function(err, data){

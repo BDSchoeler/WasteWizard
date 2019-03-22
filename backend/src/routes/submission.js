@@ -17,7 +17,7 @@ router.get('/user/:userid', async (req, res) => {
 });
 
 /* GET jobs given keywords */
-router.get('/user/:jobid', async (req, res) => {
+router.get('/job/:jobid', async (req, res) => {
     const [err, items] = await to(controller.getByJob(req.params.jobid));
     if (err) {
       res.status(err.status || 500);

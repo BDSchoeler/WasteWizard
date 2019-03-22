@@ -26,7 +26,7 @@ export default class UserController {
     );
     if(outcome.rows.length > 0) {
         const data = outcome.rows[0]
-        const user = new User(data.id, data.firstName, data.lastName, data.email, data.password);
+        const user = new User(data.id, data.firstname, data.lastname, data.email, data.password, data.adminstatus);
         return user;
     }
     return;
