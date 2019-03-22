@@ -13,7 +13,7 @@ import RegistrationModal from './common/RegistrationModal';
 
 class Main extends Component {
 	state = {
-		authenticated: false,
+		authenticated: true, //should be false in real set up
 		registerModalOpen: false
 	}
 
@@ -23,10 +23,18 @@ class Main extends Component {
 		});
 	}
 
+	logout = () => {
+		this.setState({
+			authenticated: false,
+			registrationModalOpen: false,
+		})
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
-				<NavigationBar />
+				<NavigationBar
+					logout={this.logout}/>
 				<Container>
 					<Route exact path="/" component={Jobs}/>
 					<Route exact path="/applications" component={Applications}/>
