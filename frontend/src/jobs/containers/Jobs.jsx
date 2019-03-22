@@ -4,12 +4,14 @@ import {
     Container
 } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
+import SearchBox from '../../common/SearchBox';
 
 class Jobs extends Component {
 
 	render() {
 		return (
             <Container>
+                <SearchBox />
                 Jobs
             </Container>
 		);
