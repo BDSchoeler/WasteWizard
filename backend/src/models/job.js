@@ -3,7 +3,7 @@ module.exports = class Job {
     title,
     description,
     location,
-    user,
+    userId,
     jobtype,
     jobtitle,
     salary,
@@ -13,7 +13,7 @@ module.exports = class Job {
     this.title = title;
     this.description = description;
     this.location = location;
-    this.user = user;
+    this.userId = userId;
     this.jobtype = jobtype;
     this.jobtitle = jobtitle;
     this.salary = salary;

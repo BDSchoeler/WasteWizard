@@ -3,13 +3,24 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS jobs;
 DROP TABLE IF EXISTS keywords;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS saved;
+DROP TABLE IF EXISTS submissions;
 
+CREATE TABLE users (
+ id UUID NOT NULL,
+ firstName VARCHAR(64),
+ lastName VARCHAR(64),
+ email VARCHAR(128),
+ password VARCHAR(60),
+ adminStatus VARCHAR(15),
+ CONSTRAINT users_pkey PRIMARY KEY(id)
+);
 -- Table of Items
 CREATE TABLE jobs(
     id          UUID NOT NULL PRIMARY KEY,
     title       VARCHAR(120) NOT NULL,
     location    VARCHAR(120),
-    user        UUID NOT NULL,
+    userId      UUID NOT NULL,
     description VARCHAR(8000),
     jobtype     VARCHAR(120),
     jobtitle    VARCHAR(120),
@@ -31,19 +42,16 @@ CREATE TABLE saved(
     userId      UUID REFERENCES users(id)
 );
 
--- 
-CREATE TABLE saved(
+--submissions
+CREATE TABLE submissions(
     id          UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v1(),
-    userId      UUID REFERENCES users(id)
-);
-
-
-CREATE TABLE users (
- id UUID NOT NULL,
- firstName CHAR(64),
- lastName CHAR(64),
- email CHAR(128),
- password CHAR(60),
- CONSTRAINT users_pkey PRIMARY KEY(id)
+    userId      UUID REFERENCES users(id),
+    jobId       UUID REFERENCES jobs(id),
+    firstName   VARCHAR(64),
+    lastName    VARCHAR(64),
+    email       VARCHAR(128),
+    phoneNumber VARCHAR(128),
+    cv          UUID,
+    dateCreated  DATE NOT NULL DEFAULT CURRENT_DATE
 );
 

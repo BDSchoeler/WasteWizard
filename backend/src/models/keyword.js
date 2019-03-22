@@ -1,7 +1,7 @@
 module.exports = class Keyword {
-  constructor(id, keyword, itemId) {
+  constructor(id, keyword, jobId) {
     this.id = id;
     this.keyword = keyword;
-    this.itemId = itemId;
+    this.jobId = jobId;
   }
 };

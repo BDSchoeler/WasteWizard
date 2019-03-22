@@ -1,9 +1,9 @@
 import { Pool } from 'pg';
 import bcrypt from 'bcrypt';
-const uuidv4 = require('uuid/v4');
+import uuidv4 from 'uuid/v4';
 import User from '../models/user';
 
-export default class ItemController {
+export default class UserController {
   constructor(pool) {
     this.pool = pool || new Pool();
   }
