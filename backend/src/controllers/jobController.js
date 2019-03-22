@@ -9,9 +9,13 @@ export default class JobController {
   }
 
   // Get Item by Keyword
-  async getJobs(params) {
+  async getJobs(data) {
     const result = await this.pool.query(
-      'SELECT * FROM jobs ORDER BY dateposted',
+      'SELECT * '
+      + 'FROM jobs '
+      + 'JOIN keywords '
+      + 'ON jobs.id = keywords.jobId '
+      + 'WHERE keywords.keyword LIKE $1', [data.searchPattern],
     );
     const jobs = [];
     for (let i = 0; i < result.rows.length; i += 1) {

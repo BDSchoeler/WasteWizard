@@ -7,7 +7,8 @@ import passport from 'passport';
 import { Pool, Client } from 'pg';
 import bcrypt from 'bcrypt';
 
-import itemsRouter from './routes/items';
+import jobRouter from './routes/jobs';
+import submissionRouter from './routes/submission';
 import userRouter from './routes/user';
 
 const JWTstrategy = require('passport-jwt').Strategy;
@@ -32,8 +33,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/items', itemsRouter);
-
+app.use('/jobs', jobRouter);
+app.use('/users', submissionRouter);
 app.use('/users', userRouter);
 
 app.get('/test', passport.authenticate('jwt', {session: false}), function(req, res, next) {

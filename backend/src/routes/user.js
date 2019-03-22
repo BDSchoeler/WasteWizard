@@ -28,8 +28,9 @@ router.post('/register', function(req, res) {
         .find(req.body.email)
         .then((user) => {
           if (!user) {
-            return res.status(401).send({
-              message: 'Authentication failed. User not found.',
+            return res.status(400).send({
+              success: false,
+              message: 'Email or password are incorrect.',
             });
           }
          if( user.comparePassword(req.body.password) ) {
@@ -37,9 +38,9 @@ router.post('/register', function(req, res) {
                 jwt.verify(token, 'nodeauthsecret', function(err, data){
                     console.log(err, data);
                 })
-                res.json({success: true, token: token});
+                res.send({success: true, token, user});
             } else {
-                res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+                res.status(400).send({success: false, message: 'Authentication failed. Wrong password.'});
             }
         })
         .catch((error) =>{ 
