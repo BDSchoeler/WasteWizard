@@ -25,7 +25,7 @@ export default class JobController {
         data.title,
         data.description,
         data.location,
-        data.userId,
+        data.userid,
         data.jobtype,
         data.jobtitle,
         data.salary,
