@@ -1,16 +1,15 @@
 import bcrypt from 'bcrypt';
 module.exports = class User {
-    constructor(id, firstName, lastName, email, password) {
+    constructor(id, firstName, lastName, email, password, adminStatus) {
       this.id = id;
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
       this.password = password;
+      this.adminStatus = adminStatus;
     }
 
     comparePassword(passw) {
-        console.log('password checking', passw);
-        console.log('password compairing to', this.password);
         if(bcrypt.compareSync(passw, this.password, null)) {
             console.log('Password is good');
             return true;

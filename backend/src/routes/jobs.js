@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
     res.status(err.status);
     res.send({ error: err.message });
   } else {
-    res.send({ data: { success: true, data: success } });
+    res.send({ success: true, data: success});
   }
 });
 
