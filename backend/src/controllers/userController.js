@@ -10,11 +10,12 @@ export default class UserController {
 
   // Get Item by Keyword
   async create(data) {
-    const user = new User(uuidv4(), data.firstName, data.lastName, data.email,  bcrypt.hashSync(data.password, 10, null));
+    const user = new User(uuidv4(), data.firstName, data.lastName, data.email,
+      bcrypt.hashSync(data.password, 10, null));
 
     const outcome = await this.pool.query(
       'INSERT INTO users( id, firstname, lastname, email, password) VALUES ($1, $2, $3, $4, $5)',
-      [ user.id, user.firstName, user.lastName, user.email, user.password]
+      [user.id, user.firstName, user.lastName, user.email, user.password],
     );
     return outcome;
   }
@@ -22,13 +23,14 @@ export default class UserController {
   async find(email) {
     const outcome = await this.pool.query(
       'SELECT * FROM users WHERE email=$1',
-      [email]
+      [email],
     );
-    if(outcome.rows.length > 0) {
-        const data = outcome.rows[0]
-        const user = new User(data.id, data.firstname, data.lastname, data.email, data.password, data.adminstatus);
-        return user;
+    if (outcome.rows.length > 0) {
+      const data = outcome.rows[0];
+      const user = new User(data.id, data.firstname, data.lastname, data.email,
+        data.password, data.adminstatus);
+      return user;
     }
-    return;
+    return undefined;
   }
 }

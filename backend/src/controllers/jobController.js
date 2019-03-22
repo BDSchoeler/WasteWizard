@@ -9,14 +9,21 @@ export default class JobController {
   }
 
   // Get Item by Keyword
-  async getJobs(data) {
-    const result = await this.pool.query(
-      'SELECT * '
-      + 'FROM jobs '
-      + 'JOIN keywords '
-      + 'ON jobs.id = keywords.jobId '
-      + 'WHERE keywords.keyword LIKE $1', [data.searchPattern],
-    );
+  async get(searchPattern) {
+    let result;
+    if (searchPattern) {
+      result = await this.pool.query(
+        'SELECT * '
+        + 'FROM jobs '
+        + 'JOIN keywords '
+        + 'ON jobs.id = keywords.jobId '
+        + 'WHERE keywords.keyword LIKE $1', [searchPattern],
+      );
+    } else {
+      result = await this.pool.query(
+        'SELECT * FROM jobs',
+      );
+    }
     const jobs = [];
     for (let i = 0; i < result.rows.length; i += 1) {
       const data = result.rows[i];
@@ -37,7 +44,7 @@ export default class JobController {
   }
 
   // Update Item Favourite Status
-  async createJob(data) {
+  async create(data) {
     const jobId = uuidv4();
     const job = new Job(
       jobId,
@@ -61,15 +68,16 @@ export default class JobController {
         job.jobtitle,
         job.salary,
         job.company,
-        job.dateposted]).then( () => {
-          const promises = [];
-          for( let i=0; i< job.keywords.length; i++) {
-            const keyword = new Keyword(uuidv4(), keywords[i], jobId)
-            const promise = this.pool.query('INSERT INTO keywords (id, keyword, itemId) VALUES ($1, $2, $3)',
-              [id, keyword, itemId]);
-            promises.push(promise);
-          }
+        job.dateposted])
+      .then(() => {
+        const promises = [];
+        for (let i = 0; i < job.keywords.length; i += 1) {
+          const keyword = new Keyword(uuidv4(), job.keywords[i], jobId);
+          const promise = this.pool.query('INSERT INTO keywords (id, keyword, itemId) VALUES ($1, $2, $3)',
+            [keyword.id, keyword.keyword, keyword.jobId]);
+          promises.push(promise);
+        }
         return Promise.all(promises);
-        });
+      });
   }
 }

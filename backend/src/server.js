@@ -33,8 +33,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/jobs', jobRouter);
-app.use('/users', submissionRouter);
+app.use('/jobs', passport.authenticate('jwt', {session: false}), jobRouter);
+app.use('/submissions', passport.authenticate('jwt', {session: false}), submissionRouter);
 app.use('/users', userRouter);
 
 app.get('/test', passport.authenticate('jwt', {session: false}), function(req, res, next) {
