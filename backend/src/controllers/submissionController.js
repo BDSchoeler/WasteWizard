@@ -12,7 +12,7 @@ export default class ItemController {
       data.phoneNumber, data.userId, data.jobId, uuidv4(), data.dateCreated);
 
     const outcome = await this.pool.query(
-      'INSERT INTO submissions(id, firstName, lastName, email, phoneNumber, userId, jobId, cv) VALUES ($1, $2, $3, $4, $5)',
+      'INSERT INTO submissions(id, firstName, lastName, email, phoneNumber, userId, jobId, cv) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
       [sub.id, sub.firstName, sub.lastName, sub.email,
         sub.phoneNumber, sub.userId, sub.jobId, sub.cv],
     );
