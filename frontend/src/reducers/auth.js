@@ -1,0 +1,34 @@
+import * as types from '../actions/authActionTypes';
+import initialState from './intialState';
+
+export default (state = initialState.authReducer, action) => {
+	switch (action.type) {
+        // Login
+        case types.LOGIN_REQUEST:
+            return {
+                ...state,
+				loading: true,
+				err: null
+            }
+		case types.LOGIN_SUCCESS:
+			return {
+				...state,
+				loading: false,
+                currentUser: action.currentUser,
+                token: action.token,
+				authenticated: true,
+				err: null,
+			};
+		case types.LOGIN_FAILURE:
+			return {
+				...state,
+                loading: false,
+                currentUser: {},
+                authenticated: false,
+				err: action.err,
+			};
+		// Default
+		default:
+			return state;
+	}
+}
