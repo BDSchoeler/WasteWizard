@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Row, Col, Button, Form
+  Row, Col, Button, Form
 } from 'react-bootstrap';
 
 class SearchBox extends Component {

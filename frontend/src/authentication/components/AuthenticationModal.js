@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Form, Button, InputGroup } from 'react-bootstrap'
+import { Modal, Form, Button, InputGroup, Alert } from 'react-bootstrap'
 
 class AuthenticationModal extends Component {
   state = {
@@ -30,10 +30,10 @@ class AuthenticationModal extends Component {
   handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
   handleSubmit = () => {
-    // this.props.login({
-    //   user: this.state.username,
-    //   password: this.state.password
-    // });
+    this.props.login({
+      email: this.state.email,
+      password: this.state.password
+    });
     this.setState({ password: '' });
   }
 
@@ -41,10 +41,11 @@ class AuthenticationModal extends Component {
   }
 
   render() {
+    // console.log(this.props)
     const {	email, password } = this.state;
 
     return (
-      <Modal show={this.props.open} bsSize='small' >
+      <Modal backdrop='static' show={this.props.open} bsSize='small' >
 			  <Modal.Header>
 					<Modal.Title>Job Wizard | Login</Modal.Title>
 				</Modal.Header>
@@ -70,6 +71,11 @@ class AuthenticationModal extends Component {
 								</InputGroup.Append>
 							</InputGroup>
 						</Form.Group>
+            { this.props.auth.err &&
+              <Alert variant='danger'>
+                {this.props.auth.err}
+              </Alert>
+            }
            	<Form.Group>
 							 <Button name='login' variant='info' onClick={this.handleSubmit}> Login </Button>
 						</Form.Group>
@@ -84,14 +90,12 @@ class AuthenticationModal extends Component {
 }
 
 AuthenticationModal.defaultProps = {
-  errorMsg: null
+
 }
 
 AuthenticationModal.propTypes = {
+  auth: PropTypes.shape({}).isRequired,
   open: PropTypes.bool.isRequired,
-  errorMsg: PropTypes.shape({
-    loginError: PropTypes.arrayOf(PropTypes.any)
-  }),
 	login: PropTypes.func.isRequired,
 	toggleRegistration: PropTypes.func.isRequired,
 }
