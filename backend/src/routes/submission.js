@@ -6,8 +6,8 @@ const router = express.Router();
 const controller = new SubmissionController();
 
 /* GET jobs given keywords */
-router.get('/user/:userid', async (req, res) => {
-  const [err, items] = await to(controller.getByUser(req.params.userid));
+router.get('/user', async (req, res) => {
+  const [err, items] = await to(controller.getByUser(req.user));
   if (err) {
     res.status(err.status || 500);
     res.send({ error: err.message });
@@ -18,14 +18,14 @@ router.get('/user/:userid', async (req, res) => {
 
 /* GET jobs given keywords */
 router.get('/job/:jobid', async (req, res) => {
-    const [err, items] = await to(controller.getByJob(req.params.jobid));
-    if (err) {
-      res.status(err.status || 500);
-      res.send({ error: err.message });
-    } else {
-      res.send({ success: true, data: items });
-    }
-  });
+  const [err, items] = await to(controller.getByJob(req.params.jobid));
+  if (err) {
+    res.status(err.status || 500);
+    res.send({ error: err.message });
+  } else {
+    res.send({ success: true, data: items });
+  }
+});
 
 /* create jobs favourite status */
 router.post('/', async (req, res) => {
