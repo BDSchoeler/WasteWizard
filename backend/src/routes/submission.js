@@ -39,4 +39,11 @@ router.post('/', async (req, res) => {
   }
 });
 
+/* create jobs favourite status */
+router.post('/upload/:id', async (req, res) => {
+  console.log('here');
+  console.log(req);
+  res.status(204).end();
+});
+
 module.exports = router;
