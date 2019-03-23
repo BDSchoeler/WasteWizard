@@ -1,4 +1,5 @@
 import instance from '../config/axiosConfig'
+import request from 'request';
 import {
     FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS, FETCH_JOBS_FAILURE,
     CREATE_JOB_REQUEST, CREATE_JOB_SUCCESS, CREATE_JOB_FAILURE,
@@ -31,7 +32,7 @@ function requestFetchJobs() {
 function acceptFetchJobs(data) {
 	return {
         type: FETCH_JOBS_SUCCESS,
-        data: data,
+        data
 	};
 }
 function rejectFetchJobs(data) {
@@ -41,13 +42,12 @@ function rejectFetchJobs(data) {
 	};
 }
 
-
 // Dispatchers
 export const createJob = (data) => async dispatch => {
     dispatch(requestCreateJob());
 
     try {
-        const result = await instance.post('jobs', data);
+        const result = await instance.post('/jobs', data);
         dispatch(acceptCreateJob(result));
     } catch(e) {
         console.log(e.response.data)
@@ -56,14 +56,15 @@ export const createJob = (data) => async dispatch => {
 }
 
 // Dispatchers
-export const fetchJobs = (data) => async dispatch => {
+export const fetchJobs = (token, keywords) => async dispatch => {
     dispatch(requestFetchJobs());
 
     try {
-        const result = await instance.get('jobs?searchPattern='+data);
-        dispatch(acceptFetchJobs(result));
+        const result = await instance.get(`/jobs?searchPattern=${keywords}`);
+        console.log(result.data.data)
+        dispatch(acceptFetchJobs(result.data.data));
     } catch(e) {
-        console.log(e.response.data)
-        dispatch(rejectFetchJobs(e.response.data));
+        console.log(e.response)
+        dispatch(rejectFetchJobs(e.response));
     }
 }

@@ -1,8 +1,9 @@
 import instance from '../config/axiosConfig'
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
-    LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
-    REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE
+    LOGOUT_SUCCESS,
+    REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE,
+    FETCH_CURRENT_USER_SUCCESS,
 } from './authActionTypes';
   
 // Login
@@ -50,17 +51,21 @@ function acceptLogout(data) {
 	};
 }	
 
+// Fetch Current User
+function acceptFetchCurrentUser(data){
+    return {
+        type: FETCH_CURRENT_USER_SUCCESS,
+        data: data
+    };
+}
+
 // Dispatchers
 export const login = (data) => async dispatch => {
     dispatch(requestLogin());
 
-    // const headers = {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${token}`
-    // }
     try {
         const result = await instance.post('users/login', data);
-        localStorage.setItem('token', result.user);
+        localStorage.setItem('token', JSON.stringify(result));
         dispatch(acceptLogin(result));
     } catch(e) {
         console.log(e.response.data)
@@ -69,7 +74,6 @@ export const login = (data) => async dispatch => {
 }
 
 export const logout = () => async dispatch => {
-    //Todo: remove from storage as well
     localStorage.removeItem('token');
     dispatch(acceptLogout());
 }
@@ -77,15 +81,20 @@ export const logout = () => async dispatch => {
 export const register = (data) => async dispatch => {
     dispatch(requestRegister());
 
-    // const headers = {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': `Bearer ${token}`
-    // }
     try {
         const result = await instance.post('users/register', data);
         dispatch(acceptRegister(result));
     } catch(e) {
         console.log(e.response.data)
         dispatch(rejectRegister(e.response.data));
+    }
+}
+
+export const fetchCurrentUser = (data) => async dispatch => {
+    const currentUser = localStorage.getItem('token');
+    if(currentUser){
+        const parsedCurrentUser = JSON.parse(currentUser);
+        dispatch(acceptFetchCurrentUser(parsedCurrentUser.data))
+        console.log(parsedCurrentUser.data)
     }
 }

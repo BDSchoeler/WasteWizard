@@ -9,5 +9,10 @@ export default {
 		authenticated: false,
 		currentUser: null,
 		err: null,
-	}
+	},
+	jobsReducer: {
+		loading: false,
+		list: [],
+		err: null
+,	}
 };

@@ -56,6 +56,14 @@ export default (state = initialState.authReducer, action) => {
 				token: null,
 				currentUser: null
 			}
+		// Fetch Current User
+		case types.FETCH_CURRENT_USER_SUCCESS:
+			return {
+				...state,
+				authenticated: true,
+				token: action.data.token,
+				currentUser: action.data.user
+			}
 		// Default
 		default:
 			return state;
