@@ -2,15 +2,17 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 DROP TABLE IF EXISTS jobs;
 DROP TABLE IF EXISTS keywords;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS saved;
 DROP TABLE IF EXISTS submissions;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
  id UUID NOT NULL,
  firstName VARCHAR(64),
  lastName VARCHAR(64),
  email VARCHAR(128),
+ skills VARCHAR(200),
+ "address" VARCHAR(200),
  password VARCHAR(60),
  adminStatus VARCHAR(15),
  CONSTRAINT users_pkey PRIMARY KEY(id)

@@ -31,13 +31,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/jobs', jobRouter);
-app.use('/submissions', submissionRouter);
-app.use('/users', userRouter);
-
 app.get('/test', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.send('respond with a resource');
 });
+
+app.use('/jobs', jobRouter);
+app.use('/submissions', submissionRouter);
+app.use('/users', userRouter);
 
 passport.use(new JWTstrategy({
   secretOrKey: 'nodeauthsecret',

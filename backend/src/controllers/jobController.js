@@ -58,6 +58,10 @@ export default class JobController {
       data.company,
       data.dateposted,
     );
+    data.keywords.push(data.description);
+    data.keywords.push(data.title);
+    data.keywords.push(data.location);
+    data.keywords.push(data.company);
 
     return this.pool.query('INSERT INTO jobs (id, title, description, location, userid, jobtype, jobtitle, salary, company) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
       [job.id,
