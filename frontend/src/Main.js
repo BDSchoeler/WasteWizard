@@ -11,25 +11,16 @@ import Account from './account/containers/Account';
 import NavigationBar from './common/NavigationBar';
 import AuthenticationModal from './authentication/components/AuthenticationModal';
 import RegistrationModal from './authentication/components/RegistrationModal';
-import { login, logout, register } from './actions/authActionCreator';
+import { login, logout, register, fetchCurrentUser } from './actions/authActionCreator';
 
 class Main extends Component {
 	state = {
 		registerModalOpen: false
 	}
 
-	componentDidMount(){
-		console.log("component did mount")
-
+	componentWillMount(){
+		this.props.actions.fetchCurrentUser();
 	}
-
-	// componentDidUpdate(){
-	// 	if(this.props.auth.authenticated){
-	// 		this.setState({
-	// 			authenticated: this.props.auth.authenticated
-	// 		})
-	// 	}
-	// }
 
 	toggleRegistration = (value) => {
 		this.setState({
@@ -37,13 +28,6 @@ class Main extends Component {
 		});
 	}
 
-	//Todo: Should be an action instead that clears the store values!
-	logout = () => {
-		this.setState({
-			authenticated: false,
-			registrationModalOpen: false,
-		})
-	}
 
 	render() {
 		const { auth, actions } = this.props;
@@ -90,20 +74,21 @@ Main.propTypes = {
 	actions: PropTypes.shape({
 		login: PropTypes.func.isRequired,
 		logout: PropTypes.func.isRequired,
+		register: PropTypes.func.isRequired,
+		fetchCurrentUser: PropTypes.func.isRequired,
 	}).isRequired
 }
 
 export default withRouter(connect(
   (state) => ({
 	auth : state.authReducer
-    // items : state.itemReducer.items
   }),
   dispatch => ({
     actions: bindActionCreators({ 
 		login,
 		logout,
-		register
-			// fetchItems
+		register,
+		fetchCurrentUser,
 		}, dispatch)
   })
 )(Main));
