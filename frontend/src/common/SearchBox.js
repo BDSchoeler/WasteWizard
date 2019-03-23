@@ -10,13 +10,9 @@ class SearchBox extends Component {
 	}
 
 	handleChange = (e) => {
-		// const { fetchItems } = this.props;
-		// this.setState({
-		// 	searchText: e.target.value
-		// });
-		// if(e.target.value === ''){
-		// 	fetchItems(null);
-		// }
+		this.setState({
+			searchText: e.target.value
+		});
 	}
 
 	handleSearch = () => {
@@ -42,7 +38,7 @@ class SearchBox extends Component {
 					/>
 				</Col>
 				<Col xs={4} md={2} className='search-box'>
-					<Button bsStyle="success" onClick={this.handleSearch}>
+					<Button variant="info" onClick={this.handleSearch}>
 						Find Jobs
 					</Button>
 				</Col>

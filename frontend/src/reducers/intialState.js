@@ -5,9 +5,9 @@ export default {
 		favourites: []
 	},
 	authReducer: {
-		token: {},
+		token: null,
 		authenticated: false,
-		currentUser: {},
+		currentUser: null,
 		err: null,
 	}
 };

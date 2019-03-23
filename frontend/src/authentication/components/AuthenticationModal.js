@@ -37,11 +37,7 @@ class AuthenticationModal extends Component {
     this.setState({ password: '' });
   }
 
-  handleErrors(){
-  }
-
   render() {
-    // console.log(this.props)
     const {	email, password } = this.state;
 
     return (

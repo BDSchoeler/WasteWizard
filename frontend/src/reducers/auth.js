@@ -27,6 +27,14 @@ export default (state = initialState.authReducer, action) => {
                 authenticated: false,
 				err: action.err,
 			};
+		// Logout
+		case types.LOGOUT_SUCCESS:
+			return {
+				...state,
+				authenticated: false,
+				token: null,
+				currentUser: null
+			}
 		// Default
 		default:
 			return state;
