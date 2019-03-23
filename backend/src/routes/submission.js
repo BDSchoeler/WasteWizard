@@ -29,9 +29,10 @@ router.get('/job/:jobid', async (req, res) => {
 
 /* create jobs favourite status */
 router.post('/', async (req, res) => {
-  const [err, success] = await to(controller.create(req.body.data));
+  req.body.userId = req.user;
+  const [err, success] = await to(controller.create(req.body));
   if (err) {
-    res.status(err.status);
+    res.status(err.status || '500');
     res.send({ error: err.message });
   } else {
     res.send({ data: { success: true, data: success } });

@@ -51,14 +51,15 @@ export default class JobController {
       data.title,
       data.description,
       data.location,
-      data.userId,
+      data.user,
       data.jobtype,
       data.jobtitle,
       data.salary,
       data.company,
       data.dateposted,
     );
-    return this.pool.query('INSERT INTO jobs (title, description, location, userid, jobtype, jobtitle, salary, company) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+
+    return this.pool.query('INSERT INTO jobs (id, title, description, location, userid, jobtype, jobtitle, salary, company) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
       [job.id,
         job.title,
         job.description,
@@ -67,13 +68,12 @@ export default class JobController {
         job.jobtype,
         job.jobtitle,
         job.salary,
-        job.company,
-        job.dateposted])
+        job.company])
       .then(() => {
         const promises = [];
-        for (let i = 0; i < job.keywords.length; i += 1) {
-          const keyword = new Keyword(uuidv4(), job.keywords[i], jobId);
-          const promise = this.pool.query('INSERT INTO keywords (id, keyword, itemId) VALUES ($1, $2, $3)',
+        for (let i = 0; i < data.keywords.length; i += 1) {
+          const keyword = new Keyword(uuidv4(), data.keywords[i], jobId);
+          const promise = this.pool.query('INSERT INTO keywords (id, keyword, jobId) VALUES ($1, $2, $3)',
             [keyword.id, keyword.keyword, keyword.jobId]);
           promises.push(promise);
         }

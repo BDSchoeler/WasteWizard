@@ -7,8 +7,8 @@ const controller = new JobController();
 
 /* GET jobs given keywords */
 router.get('/', async (req, res) => {
-  console.log(req);
-  const [err, items] = await to(controller.get());
+  console.log(req.query);
+  const [err, items] = await to(controller.get(req.query.searchPattern));
   if (err) {
     res.status(err.status || 500);
     res.send({ error: err.message });
@@ -19,9 +19,13 @@ router.get('/', async (req, res) => {
 
 /* create jobs favourite status */
 router.post('/', async (req, res) => {
-  const [err, success] = await to(controller.create(req.body.data));
+  req.body.user = req.user;
+  if (!req.body.keywords) {
+    req.body.keywords = [];
+  }
+  const [err, success] = await to(controller.create(req.body));
   if (err) {
-    res.status(err.status);
+    res.status(err.status || '500');
     res.send({ error: err.message });
   } else {
     res.send({ success: true, data: success });
