@@ -33,9 +33,7 @@ class Jobs extends Component {
 	}
 
   componentWillMount(){
-    //fetch all jobs
-    console.log('component will mount')
-    this.props.actions.fetchJobs(this.props.auth.token,'').then(()=>{
+    this.props.actions.fetchJobs('').then(()=>{
       this.setState({
         dataLoading: false
       })
@@ -72,6 +70,7 @@ class Jobs extends Component {
   }
 
   searchJobs = () => {
+    console.log(this.state.searchText);
     this.props.actions.fetchJobs(this.state.searchText).then(() => {
       this.setState({
         searchText: ''
