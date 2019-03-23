@@ -14,13 +14,13 @@ export default (state = initialState.jobsReducer, action) => {
 			return {
 				...state,
 				loading: false,
-				jobs: action.data,
+				list: action.data,
 			};
 		case types.FETCH_JOBS_FAILURE:
 			return {
 				...state,
 				loading: false,
-				jobs: [],
+				list: [],
 				err: action.err,
 				};
 		// Default
