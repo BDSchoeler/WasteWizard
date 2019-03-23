@@ -37,10 +37,9 @@ function acceptFetchJobs(data) {
 function rejectFetchJobs(data) {
 	return {
         type: FETCH_JOBS_FAILURE,
-        err: data.message,
+        err: data, //.message,
 	};
 }
-
 
 // Dispatchers
 export const createJob = (data) => async dispatch => {
@@ -56,14 +55,21 @@ export const createJob = (data) => async dispatch => {
 }
 
 // Dispatchers
-export const fetchJobs = (data) => async dispatch => {
+export const fetchJobs = (token, keywords) => async dispatch => {
+    console.log("in fetch")
     dispatch(requestFetchJobs());
 
+    //FIX CORS
     try {
-        const result = await instance.get('jobs?searchPattern='+data);
+        const header = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+        const result = await instance.get(`jobs?searchPattern=${keywords}`, { headers:  header });
+        console.log(result)
         dispatch(acceptFetchJobs(result));
     } catch(e) {
-        console.log(e.response.data)
-        dispatch(rejectFetchJobs(e.response.data));
+        console.log(e.response)
+        dispatch(rejectFetchJobs(e.response));
     }
 }
