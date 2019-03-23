@@ -27,6 +27,27 @@ export default (state = initialState.authReducer, action) => {
                 authenticated: false,
 				err: action.err,
 			};
+		// Register
+		case types.REGISTER_REQUEST:
+			return {
+				...state,
+				loading: true,
+				err: null
+			}
+		case types.REGISTER_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				registered: true,
+				err: null,
+			};
+		case types.REGISTER_FAILURE:
+			return {
+				...state,
+				loading: false,
+				registered: false,
+				err: action.err,
+			};
 		// Logout
 		case types.LOGOUT_SUCCESS:
 			return {
