@@ -60,6 +60,7 @@ export const login = (data) => async dispatch => {
     // }
     try {
         const result = await instance.post('users/login', data);
+        localStorage.setItem('token', result.user);
         dispatch(acceptLogin(result));
     } catch(e) {
         console.log(e.response.data)
@@ -69,6 +70,7 @@ export const login = (data) => async dispatch => {
 
 export const logout = () => async dispatch => {
     //Todo: remove from storage as well
+    localStorage.removeItem('token');
     dispatch(acceptLogout());
 }
 
