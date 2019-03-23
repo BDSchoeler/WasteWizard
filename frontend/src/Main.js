@@ -11,7 +11,7 @@ import Account from './account/containers/Account';
 import NavigationBar from './common/NavigationBar';
 import AuthenticationModal from './authentication/components/AuthenticationModal';
 import RegistrationModal from './authentication/components/RegistrationModal';
-import { login, logout } from './actions/authActionCreator';
+import { login, logout, register } from './actions/authActionCreator';
 
 class Main extends Component {
 	state = {
@@ -20,6 +20,7 @@ class Main extends Component {
 
 	componentDidMount(){
 		console.log("component did mount")
+
 	}
 
 	// componentDidUpdate(){
@@ -67,7 +68,7 @@ class Main extends Component {
 						open={!auth.authenticated && this.state.registerModalOpen}
 						register={actions.register}
 						toggleRegistration={this.toggleRegistration}
-						// auth={auth}
+						auth={auth}
 					/>
 					</div>)
 					}
@@ -101,6 +102,7 @@ export default withRouter(connect(
     actions: bindActionCreators({ 
 		login,
 		logout,
+		register
 			// fetchItems
 		}, dispatch)
   })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Form, Button, InputGroup } from 'react-bootstrap'
+import { Modal, Form, Button, InputGroup, Alert } from 'react-bootstrap';
 
 class RegistrationModal extends Component {
   state = {
@@ -9,7 +9,8 @@ class RegistrationModal extends Component {
     email: '',
     password1: '',
     password2: '',
-    showPassword: false
+    showPassword: false,
+    passwordMatch: true,
   }
 
   onKeyDown(e){
@@ -26,11 +27,20 @@ class RegistrationModal extends Component {
   handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
   handleSubmit = () => {
-    // this.props.register({
-    //   user: this.state.username,
-    //   password: this.state.password
-    // });
-    this.setState({ password: '' });
+    //confirm pass
+    if(this.state.password1 === this.state.password2){
+      this.setState({ passwordMatch:true});
+      this.props.register({
+        email: this.state.email,
+        password: this.state.password1,
+        firstName: this.state.firstname,
+        lastName: this.state.lastname
+      }).then(()=>{
+        this.goToLogin();
+      });
+    } else {
+      this.setState({ passwordMatch:false, password1: '', password2: '' });
+    }
   }
 
   handleErrors(){
@@ -65,6 +75,16 @@ class RegistrationModal extends Component {
               <Form.Label>Retype Password</Form.Label>
               <Form.Control onKeyDown={(e) => this.onKeyDown(e)} name='password2' type='password' value={password2} onChange={this.handleChange} />
             </Form.Group>
+            { this.props.auth.err &&
+              <Alert variant='danger'>
+                {this.props.auth.err}
+              </Alert>
+            }
+            { !this.state.passwordMatch &&
+              <Alert variant='danger'>
+                Passwords Don't Match
+              </Alert>
+            }
            	<Form.Group>
 							 <Button name='login' variant='info' onClick={this.handleSubmit}> Register </Button>
 						</Form.Group>
@@ -79,15 +99,12 @@ class RegistrationModal extends Component {
 }
 
 RegistrationModal.defaultProps = {
-  errorMsg: null
 }
 
 RegistrationModal.propTypes = {
+  auth: PropTypes.shape({}).isRequired,
   open: PropTypes.bool.isRequired,
-  errorMsg: PropTypes.shape({
-    loginError: PropTypes.arrayOf(PropTypes.any)
-  }),
-  login: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
   toggleRegistration: PropTypes.func.isRequired
 }
 
