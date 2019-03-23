@@ -31,8 +31,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/jobs', passport.authenticate('jwt', { session: false }), jobRouter);
-app.use('/submissions', passport.authenticate('jwt', { session: false }), submissionRouter);
+app.use('/jobs', jobRouter);
+app.use('/submissions', submissionRouter);
 app.use('/users', userRouter);
 
 app.get('/test', passport.authenticate('jwt', { session: false }), (req, res) => {

@@ -33,9 +33,6 @@ router.post('/login', (req, res) => {
         });
       } else if (user.comparePassword(req.body.password)) {
         const token = jwt.sign({ id: user.id }, 'nodeauthsecret', { expiresIn: 864000 * 30 });
-        jwt.verify(token, 'nodeauthsecret', (err, data) => {
-          console.log(err, data);
-        });
         res.send({ success: true, token, user });
       } else {
         res.status(400).send({ success: false, message: 'Authentication failed. Wrong password.' });

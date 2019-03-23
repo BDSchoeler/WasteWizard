@@ -1,5 +1,6 @@
 import express from 'express';
 import to from 'await-to-js';
+import fs from 'fs';
 import SubmissionController from '../controllers/submissionController';
 
 const router = express.Router();
@@ -42,8 +43,16 @@ router.post('/', async (req, res) => {
 /* create jobs favourite status */
 router.post('/upload/:id', async (req, res) => {
   console.log('here');
-  console.log(req);
-  res.status(204).end();
+  console.log();
+
+  fs.writeFile('./uploads/' + req.params.id + req.files.cv.name, req.files.cv.data, 'binary', (err) => {
+    if (err) {
+      console.log(err);
+      res.status(400).end();
+    } else {
+      res.status(204).end();
+    }
+  });
 });
 
 module.exports = router;
