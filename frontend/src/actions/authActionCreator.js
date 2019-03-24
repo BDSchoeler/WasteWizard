@@ -4,6 +4,7 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE,
     FETCH_CURRENT_USER_SUCCESS,
+    UPDATE_FAILURE,UPDATE_REQUEST,UPDATE_SUCCESS
 } from './authActionTypes';
   
 // Login
@@ -40,6 +41,24 @@ function acceptRegister(data) {
 function rejectRegister(data) {
 	return {
 	type: REGISTER_FAILURE,
+	err: data.message,
+	};
+}
+
+// UPDATE
+function requestUpdate() {
+    return {
+        type: UPDATE_REQUEST,
+        };
+}
+function acceptUpdate(data) {
+	return {
+        type: UPDATE_SUCCESS,
+	};
+}
+function rejectUpdate(data) {
+	return {
+	type: UPDATE_FAILURE,
 	err: data.message,
 	};
 }
@@ -95,6 +114,23 @@ export const fetchCurrentUser = (data) => async dispatch => {
     if(currentUser){
         const parsedCurrentUser = JSON.parse(currentUser);
         dispatch(acceptFetchCurrentUser(parsedCurrentUser.data))
-        console.log(parsedCurrentUser.data)
+    }
+}
+
+export const updateUser = (token, data) => async dispatch => {
+    dispatch(requestUpdate());
+
+    try {
+        const result = await instance.put('users', data);
+        const info = {
+            token,
+            user: result
+        }
+        console.log("HELLO",info, result)
+        localStorage.setItem('token', JSON.stringify(info));
+        dispatch(acceptUpdate(info));
+    } catch(e) {
+        console.log(e.response.data)
+        dispatch(rejectUpdate(e.response.data));
     }
 }

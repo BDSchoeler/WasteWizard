@@ -64,6 +64,27 @@ export default (state = initialState.authReducer, action) => {
 				token: action.data.token,
 				currentUser: action.data.user
 			}
+		// Register
+		case types.UPDATE_REQUEST:
+			return {
+				...state,
+				loading: true,
+				err: null
+			}
+		case types.UPDATE_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				updateSuccess: true,
+				err: null,
+			};
+		case types.UPDATE_FAILURE:
+			return {
+				...state,
+				loading: false,
+				updateSuccess: false,
+				err: action.err,
+			};
 		// Default
 		default:
 			return state;

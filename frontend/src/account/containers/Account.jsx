@@ -4,7 +4,7 @@ import {
     Container, Form, Button, Col
 } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
-import { fetchCurrentUser } from '../../actions/authActionCreator';
+import { fetchCurrentUser, updateUser } from '../../actions/authActionCreator';
 
 class Account extends Component {
   state = {
@@ -17,14 +17,14 @@ class Account extends Component {
 
   componentWillMount(){
     this.props.actions.fetchCurrentUser().then(()=>{
-      console.log(this.props)
-      // this.setState({
-      //   firstName: '',
-      //   lastName: '',
-      //   email: '',
-      //   address: '',
-      //   skills: '',
-      // })
+      const user = this.props.auth.currentUser;
+      this.setState({
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        email: user.email || '',
+        address: user.address || '',
+        skills: user.skills || '',
+      })
     });
   }
 
@@ -34,8 +34,20 @@ class Account extends Component {
     })
   }
 
+  handleSubmit = () => {
+    const model = {
+      id: this.props.auth.currentUser.id,
+      email: this.state.email,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      adminStatus: this.props.auth.currentUser.adminStatus,
+      address: this.state.address, 
+      skills: this.state.skills
+    }
+    this.props.actions.updateUser(this.props.auth.token, model)
+  }
+
 	render() {
-    console.log(this.state)
 		return (
       <Container>
         <Form>
@@ -69,7 +81,7 @@ class Account extends Component {
           <Form.Group controlId="formGridAddress1">
             <Form.Label>Address</Form.Label>
             <Form.Control placeholder="Address"
-            name='address' value={this.state.email}
+            name='address' value={this.state.address}
             onChange={this.handleChange}/>
           </Form.Group>
 
@@ -80,7 +92,7 @@ class Account extends Component {
             onChange={this.handleChange}/>
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" onClick={this.handleSubmit}>
             Update Account
           </Button>
         </Form>
@@ -95,7 +107,8 @@ export default connect(
   }),
   dispatch => ({
     actions: bindActionCreators({ 
-			fetchCurrentUser
+      fetchCurrentUser,
+      updateUser
 		}, dispatch)
   })
 )(Account);
