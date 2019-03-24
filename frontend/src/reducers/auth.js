@@ -76,6 +76,7 @@ export default (state = initialState.authReducer, action) => {
 				...state,
 				loading: false,
 				updateSuccess: true,
+				currentUser: action.data.user,
 				err: null,
 			};
 		case types.UPDATE_FAILURE:

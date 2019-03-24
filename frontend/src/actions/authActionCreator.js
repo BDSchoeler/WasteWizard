@@ -54,6 +54,7 @@ function requestUpdate() {
 function acceptUpdate(data) {
 	return {
         type: UPDATE_SUCCESS,
+        data
 	};
 }
 function rejectUpdate(data) {
@@ -123,12 +124,13 @@ export const updateUser = (token, data) => async dispatch => {
     try {
         const result = await instance.put('users', data);
         const info = {
-            token,
-            user: result
+            data: {
+                token,
+                user: result.data
+            }
         }
-        console.log("HELLO",info, result)
         localStorage.setItem('token', JSON.stringify(info));
-        dispatch(acceptUpdate(info));
+        dispatch(acceptUpdate(info.data));
     } catch(e) {
         console.log(e.response.data)
         dispatch(rejectUpdate(e.response.data));
