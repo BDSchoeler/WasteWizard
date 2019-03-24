@@ -96,7 +96,7 @@ class Jobs extends Component {
             </Row>
 
           </Card.Body>
-        </Card>;
+        </Card>
       </Tab.Pane>
     ));
     return jobTabs;

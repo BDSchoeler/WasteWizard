@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReCAPTCHA from "react-google-recaptcha";
 import { Modal, Form, Button, InputGroup, Alert } from 'react-bootstrap'
 
 class AuthenticationModal extends Component {
@@ -79,6 +80,9 @@ class AuthenticationModal extends Component {
             	<Button variant='secondary' onClick={this.goToRegister}> Need an account? Register now! </Button>
 						</Form.Group>
           </Form>
+          <ReCAPTCHA
+    sitekey="6LdjlJkUAAAAADLRAQK5n59wP-02q2v0BMNUNiG_"
+  />
         </Modal.Body>
       </Modal>
     );
