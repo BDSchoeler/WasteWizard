@@ -47,6 +47,7 @@ export default class UserController {
       'UPDATE users SET firstname=$2, lastname=$3, email=$4, adminStatus=$5, address=$6, skills=$7 WHERE id=$1;',
       [user.id, user.firstName, user.lastName, user.email, user.adminStatus, user.address, user.skills],
     );
-    return outcome;
+    return new User(user.id, user.firstName, user.lastName, user.email,
+      user.password, user.adminStatus, user.address, user.skills);
   }
 }
