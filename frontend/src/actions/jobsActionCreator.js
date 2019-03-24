@@ -56,11 +56,12 @@ export const createJob = (data) => async dispatch => {
 }
 
 // Dispatchers
-export const fetchJobs = (token, keywords) => async dispatch => {
+export const fetchJobs = (keywords) => async dispatch => {
     dispatch(requestFetchJobs());
 
     try {
-        const result = await instance.get(`/jobs?searchPattern=${keywords}`);
+        const url = `/jobs?searchPattern=${keywords}`;
+        const result = await instance.get(url);
         console.log(result.data.data)
         dispatch(acceptFetchJobs(result.data.data));
     } catch(e) {

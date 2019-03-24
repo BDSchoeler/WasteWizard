@@ -8,7 +8,7 @@ class NavigationBar extends Component {
 
 	render() {
 		return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" className='bottomPadding'>
             <Navbar.Brand>Job Wizard</Navbar.Brand>
             <Nav justify className="mr-auto">
                 <NavItem className='navItem'><Link className='navItem' to="/">Jobs</Link></NavItem>
