@@ -47,8 +47,8 @@ router.post('/login', (req, res) => {
 router.put('/', (req, res) => {
   return controller
     .update(req.body)
-    .then(() => {
-      res.send(200);
+    .then((user) => {
+      res.send(user);
     })
     .catch((error) => {
       console.log(error);
