@@ -28,7 +28,7 @@ export default class UserController {
     if (outcome.rows.length > 0) {
       const data = outcome.rows[0];
       const user = new User(data.id, data.firstname, data.lastname, data.email,
-        data.password, data.adminstatus);
+        data.password, data.adminstatus, data.address, data.skills);
       return user;
     }
     return undefined;
