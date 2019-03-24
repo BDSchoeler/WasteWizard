@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FacebookShareButton,FacebookIcon,
+  TwitterShareButton, TwitterIcon } from 'react-share';
+import GoogleMapReact from 'google-map-react';
 import {
     Container, Tab, Col, Row, ListGroup, Card, Button, Form,
 } from 'react-bootstrap';
@@ -8,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import SearchBox from '../../common/SearchBox';
 import { fetchJobs } from '../../actions/jobsActionCreator';
 import './jobs.css';
+import MyGreatPlace from './my_great_place.jsx';
 
 // const testJobs = [
 //   {id:1,title:'Job1', description:'Hello world, Hello world,Hello world,Hello world,Hello world',location:'mtl', company:'google',salary:'100',jobtype:'fulltime'},
@@ -17,7 +21,13 @@ import './jobs.css';
 class Jobs extends Component {
   state = {
     dataLoading: true,
-    searchText: ''
+    searchText: '',
+    center: {
+			lat: 45.5017,
+			lng: -73.5673
+		  },
+      zoom: 11,
+    greatPlaceCoords: {lat: 59.724465, lng: 30.080121}
   }
 
 	handleChange = (e) => {
@@ -64,6 +74,29 @@ class Jobs extends Component {
             <Card.Subtitle className='subtitle-light'>Job Type: {job.jobtype}</Card.Subtitle>
             <Card.Subtitle className='subtitle-light'>Annual Salary: {job.salary}</Card.Subtitle>
             <Button variant="success">Apply Now</Button>
+            <Row>
+              <Col md={1}>
+            <FacebookShareButton
+            url={"http://localhost:8080/#"+job.id}
+            quote={job.title}
+            className="Demo__some-network__share-button">
+            <FacebookIcon
+              size={32}
+              round />
+            </FacebookShareButton>
+            </Col>
+            <Col md={1}>
+            <TwitterShareButton
+            url={"http://localhost:8080/#"+job.id}
+            quote={job.title}
+            className="Demo__some-network__share-button">
+            <TwitterIcon
+              size={32}
+              round />
+            </TwitterShareButton>
+            </Col>
+            </Row>
+
           </Card.Body>
         </Card>;
       </Tab.Pane>
@@ -120,6 +153,17 @@ class Jobs extends Component {
             </Row>
           </Tab.Container>
           }
+          <div style={{ height: '100vh', width: '100%' }}>
+                <GoogleMapReact
+                bootstrapURLKeys={{ key: 'AIzaSyAJ6am3cGCf8oniMQF_w4zibYobuW-Ru3Y'  }}
+                defaultCenter={this.state.center}
+                defaultZoom={this.state.zoom}
+                >
+                  <MyGreatPlace lat={45.504670} lng={-73.613162} text={'1'}  />
+                  <MyGreatPlace lat={45.495157} lng={ -73.579549} text={'2'}  />
+                  <MyGreatPlace lat={45.464823} lng={-73.740594} text={'3'}  />
+                </GoogleMapReact>
+              </div>
       </Container>
 		);
 	}

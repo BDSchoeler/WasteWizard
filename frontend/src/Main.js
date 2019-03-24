@@ -15,7 +15,12 @@ import { login, logout, register, fetchCurrentUser } from './actions/authActionC
 
 class Main extends Component {
 	state = {
-		registerModalOpen: false
+		registerModalOpen: false,
+		center: {
+			lat: 45.5017,
+			lng: -73.5673
+		  },
+		  zoom: 11
 	}
 
 	componentWillMount(){
@@ -56,6 +61,7 @@ class Main extends Component {
 					/>
 					</div>)
 					}
+
 				</Container>
 			</div>
 		);
