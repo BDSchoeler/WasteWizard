@@ -43,7 +43,6 @@ router.post('/', async (req, res) => {
 /* create jobs favourite status */
 router.post('/upload/:id', async (req, res) => {
   console.log('here');
-  console.log();
 
   fs.writeFile('./uploads/' + req.params.id + req.files.cv.name, req.files.cv.data, 'binary', (err) => {
     if (err) {

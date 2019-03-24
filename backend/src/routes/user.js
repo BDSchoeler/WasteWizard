@@ -44,4 +44,28 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.put('/', (req, res) => {
+  return controller
+    .update(req.body)
+    .then(() => {
+      res.send(200);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send(error);
+    });
+});
+
+router.delete('/', (req, res) => {
+  return controller
+    .delete(req.body.email)
+    .then(() => {
+      res.send(200);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send(error);
+    });
+});
+
 module.exports = router;
